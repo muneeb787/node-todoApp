@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts" : {
-    "start": "node src/spp.js",
-    "dev": "nodemon src/spp.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "express": "^4.18.2",
