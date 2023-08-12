@@ -40,6 +40,18 @@ const todoModel = {
         const findTodo = todos.find((todo) => todo.id == id);
         findTodo.title = data.title;
         findTodo.description = data.description;
+    },
+    deleteTodo: (id)=>{
+        const findTodo = todos.findIndex((todo) => todo.id == id)
+        console.log(findTodo);
+        if(findTodo == -1)
+        {
+            return false;
+        }
+        else
+        {
+            todos.splice(findTodo, 1);
+        }
     }
 }
 

@@ -24,6 +24,18 @@ const todosController = {
         const data = req.body;
         todoModel.updateTodo(getId,data);
         return res.json("Todo Updated Successfully");
+    },
+    deleteTodo: (req,res)=>{
+        const getId = req.params.id;
+        const delStatus = todoModel.deleteTodo(getId);
+        if(delStatus == false)
+        {
+            return res.json("No Todo Found");
+        }
+        else
+        {
+            return res.json("Todo Deleted Successfully")
+        }
     }
 }
 
