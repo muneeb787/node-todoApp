@@ -3,6 +3,9 @@ import todosRouter from "./routers/todos.js";
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+
 app.get("/",(req,res)=>{
     return res.json("Welcome to the ToDo List App")
 })
