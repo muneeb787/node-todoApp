@@ -31,11 +31,15 @@ const todoModel = {
     getSpecificTodo: (id)=>{
         console.log(id)
         const findTodo = todos.find((todo) => todo.id == id);
-        console.log(findTodo);
         return findTodo;
     },
-    todo: (todo)=>{
+    addTodo: (todo)=>{
         todos.push(todo);
+    },
+    updateTodo: (id,data)=>{
+        const findTodo = todos.find((todo) => todo.id == id);
+        findTodo.title = data.title;
+        findTodo.description = data.description;
     }
 }
 

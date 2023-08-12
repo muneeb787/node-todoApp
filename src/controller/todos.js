@@ -16,8 +16,14 @@ const todosController = {
         let newId = Math.floor(Math.random() * 1000)
         newTodo = {newId , ...newTodo}
         newTodo.status = "false";
-        todoModel.todo(newTodo);
+        todoModel.addTodo(newTodo);
         return res.json("Todo Added Successfull");
+    },
+    updateTodo: (req,res)=>{
+        const getId = req.params.id;
+        const data = req.body;
+        todoModel.updateTodo(getId,data);
+        return res.json("Todo Updated Successfully");
     }
 }
 
