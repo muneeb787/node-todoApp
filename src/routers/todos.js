@@ -8,5 +8,8 @@ todosRouter.get("/todos/:id" , todosController.getSpecificTodo);
 todosRouter.post("/todos" , todosController.addNewTodo);
 todosRouter.post("/todos/:id" , todosController.updateTodo);
 todosRouter.get("/delete-todo/:id" , todosController.deleteTodo);
+todosRouter.use((req, res, next) => {
+    res.status(404).json({ message: 'Invalid route' });
+});
 
 export default todosRouter;

@@ -3,18 +3,25 @@ import todoModel from "../models/todos.js";
 const todosController = {
     getAll: (req,res)=>{
         const todos = todoModel.getAll();
-        return res.json(todos);
+        if(todoModel.getTodosLength() < 1)
+            return res.json("No Todo Find")
+        else
+            return res.json(todos);
     },
     getSpecificTodo: (req,res)=>{
         const id = req.params.id
         console.log("id is: " + id)     // Facing Error of Colon
         const todos = todoModel.getSpecificTodo(id);
-        return res.json(todos);
+        if(todos)
+            return res.json(todos);
+        else
+            return res.json("No Todo Find With Specified Id")
     },
     addNewTodo: (req,res)=>{
         let newTodo = req.body;
-        let newId = Math.floor(Math.random() * 1000)
-        newTodo = {newId , ...newTodo}
+        // let newId = Math.floor(Math.random() * 1000)
+        let id = todoModel.getTodosLength() + 1;
+        newTodo = {id , ...newTodo}
         newTodo.status = "false";
         todoModel.addTodo(newTodo);
         return res.json("Todo Added Successfull");
@@ -22,8 +29,15 @@ const todosController = {
     updateTodo: (req,res)=>{
         const getId = req.params.id;
         const data = req.body;
-        todoModel.updateTodo(getId,data);
-        return res.json("Todo Updated Successfully");
+        const status = todoModel.updateTodo(getId,data);
+        if(status)
+        {
+            return res.json("Todo Updated Successfully");
+        }
+        else
+        {
+            return res.json("No Todo found with specified id");
+        }
     },
     deleteTodo: (req,res)=>{
         const getId = req.params.id;
