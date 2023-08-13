@@ -4,18 +4,18 @@ const todosController = {
     getAll: (req,res)=>{
         const todos = todoModel.getAll();
         if(todoModel.getTodosLength() < 1)
-            return res.json("No Todo Find")
+            return res.status(404).json({ success: false , message : "No Todo Find" })
         else
-            return res.json(todos);
+            return res.status(200).json({ success: true, data: todos });
     },
     getSpecificTodo: (req,res)=>{
         const id = req.params.id
         console.log("id is: " + id)     // Facing Error of Colon
         const todos = todoModel.getSpecificTodo(id);
         if(todos)
-            return res.json(todos);
+            return res.status(200).json({ success: true, data: todos });
         else
-            return res.json("No Todo Find With Specified Id")
+            return res.status(404).json({ success: false , message : "No Todo Find With Specified Id" })
     },
     addNewTodo: (req,res)=>{
         let newTodo = req.body;
@@ -24,7 +24,7 @@ const todosController = {
         newTodo = {id , ...newTodo}
         newTodo.status = "false";
         todoModel.addTodo(newTodo);
-        return res.json("Todo Added Successfull");
+        return res.status(200).json({ success: true , message : "Todo Added Successfull"});
     },
     updateTodo: (req,res)=>{
         const getId = req.params.id;
@@ -32,11 +32,11 @@ const todosController = {
         const status = todoModel.updateTodo(getId,data);
         if(status)
         {
-            return res.json("Todo Updated Successfully");
+            return res.status(200).json({ success: true , message : "Todo Updated Successfully"});
         }
         else
         {
-            return res.json("No Todo found with specified id");
+            return res.status(200).json({ success: false , message : "No Todo found with specified id"});
         }
     },
     deleteTodo: (req,res)=>{
@@ -44,11 +44,11 @@ const todosController = {
         const delStatus = todoModel.deleteTodo(getId);
         if(delStatus == false)
         {
-            return res.json("No Todo Found");
+            return res.status(200).json({ success: false , message :"No Todo Found"});
         }
         else
         {
-            return res.json("Todo Deleted Successfully")
+            return res.status(200).json({ success: true , message :"Todo Deleted Successfully"})
         }
     }
 }
